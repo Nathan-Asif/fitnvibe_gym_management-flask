@@ -1,0 +1,171 @@
+{% extends "admin/admin_base.html" %}
+
+{% block title %}Membership Plans | {{ config.SITE_TITLE }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12">
+      <h2 class="mb-4">Membership Plans</h2>
+      <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createPlanModal">
+        Create New Plan
+      </button>
+
+      <div class="modal fade" id="createPlanModal" tabindex="-1" role="dialog" aria-labelledby="createPlanModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="createPlanModalLabel">Create Membership Plan</h5>
+              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form method="POST" action="{{ url_for('create_membership_plan') }}">
+                <div class="form-group">
+                  <label for="name">Name:</label>
+                  <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                  <label for="price">Price:</label>
+                  <input type="number" step=".01" class="form-control" id="price" name="price" required>
+                </div>
+                <div class="form-group">
+                  <label for="features">Features (comma separated):</label>
+                  <textarea class="form-control" id="features" name="features" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="icon_class">Icon Class (Font Awesome):</label>
+                  <input type="text" class="form-control" id="icon_class" name="icon_class">
+                </div>
+                <div class="form-group">
+                  <label for="is_active">Is Active:</label>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1" id="is_active" name="is_active" checked>
+                    <label class="form-check-label" for="is_active">
+                      Active
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="icon_color">Icon Color:</label>
+                  <input type="color" class="form-control" id="icon_color" name="icon_color" value="#007bff">
+                </div>
+                <button type="submit" class="btn btn-primary">Create Plan</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <table class="table table-bordered membership_table">
+        <thead>
+          <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>No.</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Features</th>
+            <th>Icon Class</th>
+            <th>Is Active</th>
+            <th>Icon Color</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for plan in plans %}
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td>
+              <a href="{{ url_for('edit_membership_plan', plan_id=plan[0]) }}" data-bs-toggle="modal" data-bs-target="#editPlanModal{{ plan[0] }}">
+                <i class="fas fa-edit"></i>
+              </a>
+            </td>
+            <td>
+              <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deletePlanModal{{ plan[0] }}">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
+            <td>{{ loop.index }}</td>
+            <td>{{ plan[1] }}</td>
+            <td>{{ plan[2] }}</td>
+            <td>{{ plan[3] }}</td>
+            <td>{{ plan[4] }}</td>
+            <td>{% if plan[5] == 1 %}Active{% else %}Inactive{% endif %}</td>
+            <td><span style="background-color: {{ plan[6] }}; color: white; padding: 2px 5px; border-radius: 3px;">&nbsp;</span></td>
+          </tr>
+
+          <div class="modal fade" id="editPlanModal{{ plan[0] }}" tabindex="-1" role="dialog" aria-labelledby="editPlanModalLabel{{ plan[0] }}" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="editPlanModalLabel{{ plan[0] }}">Edit Membership Plan</h5>
+                  <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form method="POST" action="{{ url_for('edit_membership_plan', plan_id=plan[0]) }}">
+                    <div class="form-group">
+                      <label for="name">Name:</label>
+                      <input type="text" class="form-control" id="name" name="name" value="{{ plan[1] }}" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="price">Price:</label>
+                      <input type="number" step=".01" class="form-control" id="price" name="price" value="{{ plan[2] }}" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="features">Features (comma separated):</label>
+                      <textarea class="form-control" id="features" name="features" rows="3" required>{{ plan[3] }}</textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="icon_class">Icon Class (Font Awesome):</label>
+                      <input type="text" class="form-control" id="icon_class" name="icon_class" value="{{ plan[4] }}">
+                    </div>
+                    <div class="form-group">
+                      <label for="is_active">Is Active:</label>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="1" id="is_active" name="is_active" {% if plan[5] == 1 %}checked{% endif %}>
+                        <label class="form-check-label" for="is_active">
+                          Active
+                        </label>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="icon_color">Icon Color:</label>
+                      <input type="color" class="form-control" id="icon_color" name="icon_color" value="{{ plan[6] }}">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Plan</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal fade" id="deletePlanModal{{ plan[0] }}" tabindex="-1" role="dialog" aria-labelledby="deletePlanModalLabel{{ plan[0] }}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="deletePlanModalLabel{{ plan[0] }}">Confirm Deletion</h5>
+                  <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  Are you sure you want to delete this plan?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  <a href="{{ url_for('delete_membership_plan', plan_id=plan[0]) }}" class="btn btn-danger">Delete</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,249 @@
+{% extends "base.html" %}
+{% block title %} Home {% endblock %}
+
+{% block hero_banner %}
+<div class="cover-container d-flex w-100 h-100 mx-auto flex-column hero-banner">
+    <video autoplay loop muted playsinline class="video-background">
+        <source src="{{ url_for('static', filename='content/gym_hero_banner.mp4') }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="hero-content">
+        <header class="mb-auto">
+            <nav class="navbar navbar-expand-md navbar-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand d-md-none" href="#">
+                        <img src="{{ url_for('static', filename='imgs/fitnvibe_logo_enhanced_nobg_white.png') }}" alt="FitnVibe Logo">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/membership">Membership</a>
+                            </li>
+                            <a class="navbar-brand d-none d-md-block" href="/">
+                                <img src="{{ url_for('static', filename='imgs/fitnvibe_logo_enhanced_nobg_white.png') }}" alt="FitnVibe Logo">
+                            </a>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/about-us">About Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/contact-us">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <div class="banner-content">
+            <h1>Step Into the Future of Fitness with FitnVibe</h1>
+            <p>Find Your Fit, Feel the Vibe.</p>
+            <a href="/membership" class="hero-cta-button">Get Started</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<section class="content-section py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Why Choose FitnVibe?</h2>
+            <p class="section-description">
+                Discover how FitnVibe can help you achieve your fitness goals with top-notch facilities, expert guidance, and a supportive community.
+            </p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card border-0 h-100 text-center p-4 shadow-sm">
+                    <img src="{{ url_for('static', filename='imgs/personal_training.jpg') }}" alt="Personal Training" class="card-img-top mx-auto mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                    <h5 class="card-title">Personal Training</h5>
+                    <p class="card-text">Receive personalized coaching to guide you toward your fitness objectives.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 h-100 text-center p-4 shadow-sm">
+                    <img src="{{ url_for('static', filename='imgs/gym_equipment.jpg') }}" alt="State of the Art Equipment" class="card-img-top mx-auto mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                    <h5 class="card-title">State-of-the-Art Equipment</h5>
+                    <p class="card-text">Work out with cutting-edge equipment designed for peak performance.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 h-100 text-center p-4 shadow-sm">
+                    <img src="{{ url_for('static', filename='imgs/gym_community_support.jpg') }}" alt="Community Support" class="card-img-top mx-auto mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                    <h5 class="card-title">Community Support</h5>
+                    <p class="card-text">Join a welcoming fitness community that inspires and motivates you.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content-section py-5" style="background-color: #fff;">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Image Column -->
+            <div class="col-md-6">
+                <img src="{{ url_for('static', filename='imgs/gym_fitness_class.jpg') }}" alt="Fitness Class" class="img-fluid transition-image">
+            </div>
+            <!-- Content Column -->
+            <div class="col-md-6">
+                <h2 class="section-title mb-3">Join Our Fitness Classes</h2>
+                <p class="section-text mb-4">
+                    Experience a variety of classes tailored to your fitness goals. From yoga to high-intensity workouts, 
+                    we’ve got something for everyone.
+                </p>
+                <a href="/classes" class="transition-button">Learn More</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- Membership Section -->
+    <section class="membership_section py-5">
+        <div class="container mt-5">
+            <h2 class="text-center text-white mb-5">Gym Membership Plans</h2>
+            <div class="row">
+                {% for plan in plans %}
+                <div class="col-lg-4 col-md-6 mb-3">
+                    <div class="card py-4 px-lg-5 h-100">
+                        <div class="card-body d-flex flex-column">
+                            <div class="text-center">
+                                <i class="{{ plan[4] }} fa-4x mb-3" style="color: {{ plan[6] }};"></i>
+                            </div>
+                            <div class="card-title mb-4 text-center fs-2">{{ plan[1] }}</div>
+                            <div class="pricing">
+                                <ul class="list-unstyled">
+                                    {% for feature in plan[3].splitlines() %}
+                                    <li class="mb-3">
+                                        <i class="fas fa-check-circle icon-color"></i>
+                                        <span class="small ms-3">{{ feature }}</span>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="text-center mt-auto mb-4">
+                                <span class="fw-bold fs-2">${{ plan[2] }}</span>/month
+                            </div>
+                            <div class="text-center"><button type="button" class="btn btncolor">Choose Plan</button></div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+
+<section class="testimonial-contact-section" style="background: url({{ url_for('static', filename='imgs/gym_bicep_lift.jpg') }}) no-repeat center center fixed;">
+    <div class="overlay">
+        <div class="container">
+            <!-- Testimonials Section -->
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center">
+                    <h2 class="section-title text-white">What Our Clients Say</h2>
+                    <div class="testimonial-slider">
+                        <div class="testimonial-item">
+                            <p class="testimonial-text">"This gym has completely transformed my fitness journey. The trainers and the environment are top-notch!"</p>
+                            <p class="testimonial-author">- John Doe</p>
+                        </div>
+                        <div class="testimonial-item">
+                            <p class="testimonial-text">"I love the variety of equipment and the swimming pool. It's a great place to workout and relax!"</p>
+                            <p class="testimonial-author">- Jane Smith</p>
+                        </div>
+                        <div class="testimonial-item">
+                            <p class="testimonial-text">"The trainers here are super friendly and always help me push myself to achieve my goals."</p>
+                            <p class="testimonial-author">- Mike Johnson</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="detail_sec section-bar" style="background-color: #ff6347;">
+            <div class="container">
+                <div class="row text-center d-flex justify-content-center align-items-center">
+                    <div class="col-md-2">
+                        <div class="icon-box p-4">
+                            <div class="icon">
+                                <i class="fas fa-map-signs"></i>
+                            </div>
+                            <h3 class="timer" data-to="3">0</h3>
+                            <p>Branches</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="icon-box p-4">
+                            <div class="icon">
+                                <i class="fas fa-dumbbell"></i>
+                            </div>
+                            <h3 class="timer" data-to="232">0</h3>
+                            <p>Machines</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="icon-box p-4">
+                            <div class="icon">
+                                <i class="fas fa-anchor"></i>
+                            </div>
+                            <h3 class="timer" data-to="40">0</h3>
+                            <p>Trainers</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="icon-box p-4">
+                            <div class="icon">
+                                <i class="fas fa-swimming-pool"></i>
+                            </div>
+                            <h3 class="timer" data-to="23">0</h3>
+                            <p>Meters Pool</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2 d-none d-md-block">
+                        <div class="icon-box p-4">
+                            <div class="icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <h3 class="timer" data-to="12889">0</h3>
+                            <p>Clients</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>        
+        
+        
+        <div class="contact-form-wrapper d-flex justify-content-center">
+            <div class="form_header">
+            <i class="fa fa-envelope" aria-hidden="true"></i>
+            <h2 class="title">Get in Touch</h2>
+            </div>
+            <form action="#" class="contact-form">
+                <p class="description">Feel free to contact us if you need any assistance, any help or another question.
+                </p>
+                <div>
+                    <input type="text" class="form-control rounded border-white mb-3 form-input" id="name" placeholder="Name" required>
+                </div>
+                <div>
+                    <input type="email" class="form-control rounded border-white mb-3 form-input" placeholder="Email" required>
+                </div>
+                <div>
+                    <textarea id="message" class="form-control rounded border-white mb-3 form-text-area" rows="5" cols="30" placeholder="Message" required></textarea>
+                </div>
+                <div class="submit-button-wrapper">
+                    <input type="submit" value="Send">
+                </div>
+            </form>
+        </div>
+    </div>
+        
+    </section>
+    
+    
+    {% endblock %}

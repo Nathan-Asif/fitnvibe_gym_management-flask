@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Login | {{ config.SITE_TITLE }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/boostrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/auth_style.css') }}">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="card login-content shadow-lg border-0">
+          <div class="card-body">
+            <div class="text-center">
+              <img class="logo" src="{{ url_for('static', filename='imgs/fitnvibe_logo_enhanced_nobg_white.png') }}" alt="Logo">
+            </div>
+            <h3 class="text-logo text-center">Sign In</h3>
+            <br>
+            {% if error %}
+            <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endif %}
+            <form class="text-center" action="{{ url_for('login') }}" method="POST">
+              {# {{ form.hidden_tag() }} #}
+              <input class="form-control border-0 mb-3" type="text" name="username" placeholder="Username" required>
+              <input class="form-control border-0 mb-3" type="password" name="password" placeholder="Password" required>
+              <button class="btn btn-primary btn-sm border-0" type="submit" name="submit">Sign In</button>
+            </form>
+            {# <p class="forgot text-center mt-2"><a href="#">Forgot Password?</a></p> #}
+          </div>
+          {# <div class="nomember text-center">
+            <p>Not a member? <a href="#">Create an Account</a></p>
+          </div> #}
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-popRpmFF9JQgExhfw5tZT4I9/CI5e2QcuUZPOVXb1m7qUmeR2b50u+YFEYe1wgzy" crossorigin="anonymous"></script>
+</body>
+
+</html>

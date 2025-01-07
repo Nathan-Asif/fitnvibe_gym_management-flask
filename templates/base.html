@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
+</head>
+<body class="{% if request.path == '/' %}home-page{% else %}other-page{% endif %}">
+<!-- Modal for Get Started Membership CTA -->
+<div id="myModal" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="getStartedModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <!-- Modal content -->
+        <div class="modal-content custom-modal">
+            <div class="modal-header custom-modal-header">
+                <button type="button" class="close custom-close-btn" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+                <h4 class="modal-title custom-modal-title">Get Started with FitnVibe</h4>
+            </div>
+            <div class="modal-body custom-modal-body text-center">
+                <h1 class="custom-modal-heading">Start Your Fitness Journey Today!</h1>
+                <p class="custom-modal-text">Join FitnVibe now and get exclusive access to our gym, training programs, and special member benefits. Choose a membership plan that fits your goals.</p>
+                <p><strong>Feel free to reach out if you have any questions!</strong></p>
+                <a href="#membershipPlansSection" class="btn btn-primary custom-cta-btn">Get Started with a Plan</a>
+            </div>
+            <div class="modal-footer custom-modal-footer">
+                <button type="button" class="btn btn-secondary custom-close-btn" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <button id="toTopButton" class="to-top-button" title="Go to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    {% if request.path == '/' %}
+    {% block hero_banner %}
+    {% endblock %}
+    {% else %}
+    <header class="mb-auto">
+        <nav class="navbar navbar-expand-md navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand d-md-none" href="#">
+                    <img src="{{ url_for('static', filename='imgs/fitnvibe_logo_enhanced_nobg.png') }}" alt="FitnVibe Logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/membership">Membership</a>
+                        </li>
+                        <a class="navbar-brand d-none d-md-block" href="/">
+                            <img src="{{ url_for('static', filename='imgs/fitnvibe_logo_enhanced_nobg_white.png') }}" alt="FitnVibe Logo">
+                        </a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about-us">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contact-us">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    {% endif %}
+    <div class="sticky_scroll">
+        {% block content %}
+        {% endblock %}
+    </div>
+        <footer>
+            <div class="container">
+                <div class="footer-top">
+                    <div class="row">
+                        <!-- About FitnVibe -->
+                        <div class="col-md-6 col-lg-3 footer_info">
+                            <img src="{{ url_for('static', filename='imgs/fitnvibe_logo_enhanced_nobg_white.png') }}" alt="FitnVibe Logo" class="footer_logo">
+                            <ul>
+                                <li><a href="tel:+1234567890"><i class="fas fa-phone fa-flip-horizontal"></i>+1 234 567 890</a></li>
+                                <li><i class="fas fa-map-marker-alt"></i> 123 Fitness St., FitTown, FT 1234</li>
+                            </ul>
+                            <a href="/membership" class="btn red-btn">Join Us Now</a>
+                        </div>
+        
+                        <!-- Quick Links -->
+                        <div class="col-md-6 col-lg-2 page-more-info">
+                            <div class="footer-title">
+                                <h4>Quick Links</h4>
+                            </div>
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Membership</a></li>
+                                <li><a href="#">About</a></li>
+                                <li><a href="#">Contact</a></li>
+                            </ul>
+                        </div>
+        
+                        <!-- More Information -->
+                        <div class="col-md-6 col-lg-3 page-more-info">
+                            <div class="footer-title">
+                                <h4>More Info</h4>
+                            </div>
+                            <ul>
+                                <li><a href="#">Our Mission</a></li>
+                                <li><a href="#">Health & Wellness</a></li>
+                                <li><a href="#">Fit Tips</a></li>
+                                <li><a href="#">Nutrition Plans</a></li>
+                            </ul>
+                        </div>
+        
+                        <!-- Social Media & Hours -->
+                        <div class="col-md-6 col-lg-4 open-hours">
+                            <div class="footer-title">
+                                <h4>Follow Us</h4>
+                                <ul class="footer-social">
+                                    <li><a href="https://facebook.com/fitnvibe" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="https://instagram.com/fitnvibe" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                                    <li><a href="https://linkedin.com/company/fitnvibe" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+                                </ul>
+                            </div>
+                            <table class="table gym_schedule">
+                                <tbody>
+                                    <tr>
+                                        <td><i class="far fa-clock"></i> Monday - Friday</td>
+                                        <td>6:00am - 9:00pm</td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="far fa-clock"></i> Saturday</td>
+                                        <td>8:00am - 6:00pm</td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="far fa-clock"></i> Sunday</td>
+                                        <td>Closed</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <hr>
+                            <div class="footer-logo">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td><img src="{{ url_for('static', filename="imgs/SSUET-Official-Logo.webp") }}" alt="FitnVibe Logo" class="footer-logo-img"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="footer-bottom">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <a href="privacy-policy.html">Privacy Policy</a>
+                        </div>
+                        <div class="col-sm-8">
+                            <p>&copy; 2024 FitnVibe | Nathan Asif. All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>        
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/countup.js/1.8.2/countUp.min.js'></script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</html>

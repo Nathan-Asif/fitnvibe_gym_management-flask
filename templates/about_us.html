@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %} About Us {% endblock %}
+{% block content %}
+<section class="about-section mt-5 py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <!-- Content Column -->
+            <div class="content-column col-lg-6 col-md-12 col-sm-12 order-2">
+                <div class="inner-column">
+                    <div class="sec-title">
+                        <span class="title text-uppercase text-primary-color">About FitnVibe</span>
+                        <h2>Your Partner in Fitness and Wellness Since 2015</h2>
+                    </div>
+                    <div class="text">
+                        Welcome to FitnVibe, your one-stop destination for achieving your fitness goals. Since our inception in 2015, we've been empowering individuals to transform their lives with cutting-edge fitness programs, top-notch equipment, and expert guidance.
+                    </div>
+                    <div class="text">
+                        At FitnVibe, we focus on holistic wellness by blending innovation with tried-and-tested techniques. Whether you're a fitness enthusiast or a beginner, we have personalized plans, group classes, and nutritional support to cater to all fitness levels.
+                    </div>
+                    <div class="btn-box">
+                        <a href="/contact-us" class="bg-primary-color text-white" style="border-radius: 5px;" target="_blank">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image Column -->
+            <div class="image-column col-lg-6 col-md-12 col-sm-12">
+                <div class="inner-column">
+                    <div class="author-desc text-center">
+                        <h2>Nathan Asif</h2>
+                        <span>Fitness Coach & Founder</span>
+                    </div>
+                    <figure class="image-1">
+                        <img title="Nathan Asif" src="{{ url_for('static', filename="imgs/about_img.jpg") }}" alt="Nathan Asif" class="img-fluid rounded shadow" style="width: 500px; height: 450px; object-fit: cover;">
+                    </figure>
+                </div>
+            </div>
+        </div>
+
+        <!-- Our Future Goals Section -->
+        <div class="sec-title mt-5 text-center">
+            <span class="title text-uppercase text-primary-color">Our Vision</span>
+            <h2>Leading the Way in Fitness Innovation & Technology</h2>
+        </div>
+        <center>
+        <div class="text">
+            At FitnVibe, we strive to stay ahead by integrating the latest advancements in fitness technology and user experience. Our goal is to create an environment where functionality meets aesthetics, providing our members with a seamless and effective fitness journey.
+        </div>
+        <div class="text">
+            From smart equipment to personalized coaching, we ensure that every tool and service we provide is optimized for performance and designed to inspire confidence and success.
+        </div>
+        <div class="text">
+            Our commitment is to make fitness accessible, enjoyable, and impactful for everyone, fostering a community where members can thrive both physically and mentally.
+        </div>
+        <div class="text">
+            Join us in our mission to redefine fitness and wellness. Let's build a healthier, stronger future together!
+        </div>
+        </center>
+    </div>
+</section>
+{% endblock %}
